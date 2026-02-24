@@ -1,2 +1,2 @@
-# hyperPGE
-The Python Game Engine - hyperPGE
+# novaPGE
+The Python Game Engine - novaPGE
