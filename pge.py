@@ -6,7 +6,10 @@ class Object:
     def __init__(self):
         pass
 
-    def update(self, event, deltatime):
+    def handle_event(self, event, deltatime):
+        pass
+
+    def handle_keys(self, keys, deltatime):
         pass
 
     def draw(self, screen: pygame.Surface):
@@ -17,10 +20,14 @@ class Scene:
         self.color: pygame.Color = pygame.Color(113, 199, 245)
         self.objects: list[Object] = []
 
-    def update(self, events, deltatime):
-        for gameobject in self.objects:
+    def update(self, events, dt):
+        keys = pygame.key.get_pressed()
+
+        for obj in self.objects:
             for event in events:
-                gameobject.update(event, deltatime)
+                obj.handle_event(event, dt)
+        
+        obj.handle_keys(keys, dt)
 
     def draw(self, screen: pygame.Surface):
         screen.fill(self.color)
