@@ -19,13 +19,18 @@ class Scene:
 
     def update(self, events, deltatime):
         for gameobject in self.objects:
-            for event in events:          # 이벤트는 리스트로 반복
+            for event in events:
                 gameobject.update(event, deltatime)
 
     def draw(self, screen: pygame.Surface):
         screen.fill(self.color)
         for gameobject in self.objects:
             gameobject.draw(screen)
+    
+    def regist_object(self, gameobject: Object):
+        self.objects.append(gameobject)
+
+        return self
 
 class Game:
     def __init__(self):
