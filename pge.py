@@ -15,15 +15,17 @@ class Object:
 class Scene:
     def __init__(self):
         self.color: pygame.Color = pygame.Color(113, 199, 245)
-
         self.objects: list[Object] = []
-    
-    def update_and_draw(self, screen: pygame.Surface, event, deltatime):
-        screen.fill(self.color)
 
+    def update(self, events, deltatime):
         for gameobject in self.objects:
-            gameobject.draw()
-            gameobject.update(event, deltatime)
+            for event in events:          # 이벤트는 리스트로 반복
+                gameobject.update(event, deltatime)
+
+    def draw(self, screen: pygame.Surface):
+        screen.fill(self.color)
+        for gameobject in self.objects:
+            gameobject.draw(screen)
 
 class Game:
     def __init__(self):
@@ -45,8 +47,10 @@ class Game:
                     self.is_running = False
             
             for scene in self.scenes:
-                scene.update_and_draw(self.screen, events, dt)
-            
+                scene.update(events, dt)
+            for scene in self.scenes:
+                scene.draw(self.screen)
+                        
             pygame.display.update()
     
     def regist_scene(self, scene: Scene):
